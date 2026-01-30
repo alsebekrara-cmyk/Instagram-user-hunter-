@@ -889,6 +889,7 @@
             margin-bottom: 12px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -1671,10 +1672,14 @@
                 unknown: allData.filter(u => u.status === 'unknown' || !u.status).length
             };
 
-            document.getElementById('totalCount').textContent = formatNumber(stats.total);
-            document.getElementById('availableCount').textContent = formatNumber(stats.available);
-            document.getElementById('takenCount').textContent = formatNumber(stats.taken);
-            document.getElementById('unknownCount').textContent = formatNumber(stats.unknown);
+            const totalEl = document.getElementById('totalCount');
+            if (totalEl) totalEl.textContent = formatNumber(stats.total);
+            const availableEl = document.getElementById('availableCount');
+            if (availableEl) availableEl.textContent = formatNumber(stats.available);
+            const takenEl = document.getElementById('takenCount');
+            if (takenEl) takenEl.textContent = formatNumber(stats.taken);
+            const unknownEl = document.getElementById('unknownCount');
+            if (unknownEl) unknownEl.textContent = formatNumber(stats.unknown);
         }
 
         // Filter Data

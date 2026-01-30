@@ -1,6 +1,5 @@
 const CACHE_NAME = 'instagram-rare-usernames-v1';
 const urlsToCache = [
-  '/',
   '/index.html',
   '/manifest.json'
 ];
