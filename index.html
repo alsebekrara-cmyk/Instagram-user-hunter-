@@ -349,104 +349,204 @@
             font-weight: 500;
         }
 
-        /* ========== Filters Section ========== */
-        .filters-section {
+        /* ========== Compact Search Bar ========== */
+        .search-container {
             background: var(--card-bg);
             border-bottom: 1px solid var(--border-color);
-            padding: 20px;
+            padding: 12px 15px;
             position: sticky;
-            top: 76px;
+            top: 70px;
             z-index: 999;
-            transition: all var(--transition-normal);
+            backdrop-filter: blur(10px);
         }
 
-        .filters-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .filters-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .toggle-filters-btn {
-            display: none;
-            padding: 8px 16px;
-            background: var(--dark-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            color: var(--text-primary);
-            font-size: 13px;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-
-        .toggle-filters-btn:active {
-            transform: scale(0.95);
-        }
-
-        .filters-content {
-            max-height: 1000px;
-            overflow: hidden;
-            transition: max-height var(--transition-normal);
-        }
-
-        .filters-content.collapsed {
-            max-height: 0;
-        }
-
-        .filters-container {
+        .search-wrapper {
             max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
-        .search-box {
-            width: 100%;
-            padding: 15px 50px 15px 20px;
+        .compact-search {
+            flex: 1;
+            padding: 12px 18px;
             background: var(--dark-bg);
             border: 2px solid var(--border-color);
-            border-radius: var(--radius-lg);
+            border-radius: 50px;
             color: var(--text-primary);
-            font-size: 16px;
+            font-size: 15px;
             transition: all var(--transition-normal);
-            margin-bottom: 20px;
         }
 
-        .search-box:focus {
+        .compact-search:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.1);
+            transform: scale(1.02);
         }
 
-        .filters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .filter-group {
+        .filter-drawer-btn {
+            width: 45px;
+            height: 45px;
+            padding: 0;
+            background: var(--dark-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            color: var(--text-primary);
+            cursor: pointer;
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal);
+            position: relative;
+        }
+
+        .filter-drawer-btn:hover {
+            background: var(--primary-gradient);
+            border-color: var(--primary-color);
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .filter-drawer-btn svg {
+            transition: all var(--transition-normal);
+        }
+
+        /* ========== Filter Drawer ========== */
+        .filter-drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .filter-drawer.active {
+            display: block;
+        }
+
+        .filter-drawer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .filter-drawer-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: 20px 20px 0 0;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUpDrawer 0.3s ease;
+        }
+
+        @keyframes slideUpDrawer {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .filter-drawer-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            z-index: 10;
+        }
+
+        .filter-drawer-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .close-drawer {
+            width: 35px;
+            height: 35px;
+            padding: 0;
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .close-drawer:hover {
+            background: var(--danger-color);
+            border-color: var(--danger-color);
+            transform: rotate(90deg);
+        }
+
+        .filter-drawer-body {
+            padding: 20px;
+        }
+
+        .filter-section {
+            margin-bottom: 25px;
         }
 
         .filter-label {
+            display: block;
             font-size: 13px;
-            color: var(--text-secondary);
             font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .filter-select {
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            background: var(--dark-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-gradient);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
+        }
+
+        .filter-select-modern {
+            width: 100%;
             padding: 12px 15px;
             background: var(--dark-bg);
             border: 2px solid var(--border-color);
@@ -457,39 +557,64 @@
             transition: all var(--transition-normal);
         }
 
-        .filter-select:focus {
+        .filter-select-modern:focus {
             outline: none;
             border-color: var(--primary-color);
         }
 
-        .filter-tags {
+        .filter-chips {
             display: flex;
-            flex-wrap: wrap;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .filter-tag {
-            padding: 8px 16px;
-            background: rgba(225, 48, 108, 0.1);
-            border: 1px solid var(--primary-color);
+        .chip {
+            padding: 10px 16px;
+            background: var(--dark-bg);
+            border: 2px solid var(--border-color);
             border-radius: 50px;
-            color: var(--primary-color);
+            color: var(--text-primary);
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: all var(--transition-fast);
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: all var(--transition-fast);
         }
 
-        .filter-tag.active {
+        .chip:hover {
+            transform: scale(1.05);
+        }
+
+        .chip.active {
             background: var(--primary-gradient);
+            border-color: transparent;
             color: white;
         }
 
-        .filter-tag:hover {
-            transform: scale(1.05);
+        .chip svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .apply-filters-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all var(--transition-normal);
+        }
+
+        .apply-filters-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(225, 48, 108, 0.4);
         }
 
         /* ========== Main Content ========== */
@@ -543,8 +668,8 @@
         /* ========== Cards Grid ========== */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
             animation: fadeInUp 0.6s ease;
         }
 
@@ -555,7 +680,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -567,11 +692,23 @@
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 25px;
+            padding: 18px;
             transition: all var(--transition-normal);
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            animation: cardAppear 0.5s ease;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         .username-card::before {
@@ -580,15 +717,15 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
             background: var(--primary-gradient);
             transform: scaleX(0);
             transition: transform var(--transition-normal);
         }
 
         .username-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
             border-color: rgba(225, 48, 108, 0.5);
         }
 
@@ -599,31 +736,41 @@
         .card-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 15px;
         }
 
         .profile-pic {
-            width: 70px;
-            height: 70px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid transparent;
+            border: 2px solid transparent;
             background: var(--primary-gradient);
             padding: 2px;
+            transition: all var(--transition-normal);
+        }
+
+        .username-card:hover .profile-pic {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .profile-pic-placeholder {
-            width: 70px;
-            height: 70px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 24px;
             font-weight: 700;
             color: white;
             position: relative;
+            transition: all var(--transition-normal);
+        }
+
+        .username-card:hover .profile-pic-placeholder {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .profile-pic-placeholder.status-available {
@@ -642,71 +789,77 @@
         }
 
         .profile-pic-placeholder svg {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             fill: white;
         }
 
         .card-info {
             flex: 1;
+            min-width: 0;
         }
 
         .username {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .verified-badge {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             background: var(--secondary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .verified-badge svg {
-            width: 12px;
-            height: 12px;
+            width: 11px;
+            height: 11px;
             fill: white;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 50px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
 
         .status-available {
-            background: rgba(76, 217, 100, 0.2);
+            background: rgba(76, 217, 100, 0.15);
             color: var(--success-color);
         }
 
         .status-taken {
-            background: rgba(255, 59, 48, 0.2);
+            background: rgba(255, 59, 48, 0.15);
             color: var(--danger-color);
         }
 
         .status-unknown {
-            background: rgba(255, 149, 0, 0.2);
+            background: rgba(255, 149, 0, 0.15);
             color: var(--warning-color);
         }
 
         .card-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-            padding: 15px 0;
+            gap: 10px;
+            margin: 12px 0;
+            padding: 12px 0;
             border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
         }
@@ -716,26 +869,26 @@
         }
 
         .stat-item-value {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
         .stat-item-label {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-secondary);
             text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
 
         .card-bio {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-secondary);
             line-height: 1.5;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
-            line-clamp: 3;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -743,36 +896,37 @@
         .card-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
 
         .tag {
-            padding: 5px 12px;
+            padding: 4px 10px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 50px;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-secondary);
+            white-space: nowrap;
         }
 
         .card-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .card-btn {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border: none;
             border-radius: var(--radius-md);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all var(--transition-fast);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .card-btn-primary {
@@ -787,7 +941,11 @@
         }
 
         .card-btn:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
+        }
+
+        .card-btn:active {
+            transform: scale(0.98);
         }
 
         /* ========== Modal ========== */
@@ -960,89 +1118,174 @@
         /* ========== Responsive Design ========== */
         @media (max-width: 768px) {
             .nav-container {
-                padding: 12px 15px;
+                padding: 10px 12px;
+            }
+
+            .logo-icon {
+                width: 38px;
+                height: 38px;
+            }
+
+            .logo-icon svg {
+                width: 22px;
+                height: 22px;
             }
 
             .logo-text h1 {
-                font-size: 16px;
+                font-size: 15px;
             }
 
             .logo-text p {
                 display: none;
             }
 
-            .nav-actions .btn {
-                padding: 8px 12px;
-                font-size: 13px;
-            }
-
             .nav-actions .btn span {
                 display: none;
             }
 
+            .nav-actions .btn,
+            .theme-toggle {
+                width: 38px;
+                height: 38px;
+                padding: 0;
+                justify-content: center;
+            }
+
+            .nav-actions svg {
+                width: 18px;
+                height: 18px;
+            }
+
             .stats-container {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
+                gap: 12px;
             }
 
-            .stat-value {
-                font-size: 28px;
-            }
-
-            .filters-section {
-                top: 68px;
+            .stat-card {
                 padding: 15px;
             }
 
-            .toggle-filters-btn {
-                display: flex;
-                align-items: center;
-                gap: 6px;
+            .stat-value {
+                font-size: 24px;
             }
 
-            .filters-content {
-                margin-top: 15px;
+            .stat-label {
+                font-size: 12px;
             }
 
-            .filters-grid {
-                grid-template-columns: 1fr;
+            .search-container {
+                top: 60px;
+                padding: 10px 12px;
+            }
+
+            .compact-search {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .filter-drawer-btn {
+                width: 40px;
+                height: 40px;
             }
 
             .section-title {
-                font-size: 22px;
+                font-size: 20px;
             }
 
             .cards-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 12px;
             }
 
             .username-card {
-                padding: 20px;
+                padding: 15px;
             }
 
             .profile-pic,
             .profile-pic-placeholder {
-                width: 60px;
-                height: 60px;
+                width: 50px;
+                height: 50px;
             }
 
             .profile-pic-placeholder svg {
-                width: 35px;
-                height: 35px;
+                width: 28px;
+                height: 28px;
             }
 
             .username {
-                font-size: 18px;
+                font-size: 16px;
+            }
+
+            .status-badge {
+                font-size: 10px;
+                padding: 3px 8px;
             }
 
             .card-stats {
-                gap: 10px;
+                gap: 8px;
+                padding: 10px 0;
+                margin: 10px 0;
+            }
+
+            .stat-item-value {
+                font-size: 14px;
+            }
+
+            .stat-item-label {
+                font-size: 9px;
+            }
+
+            .card-bio {
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+
+            .card-btn {
+                padding: 9px;
+                font-size: 12px;
             }
 
             .footer-links {
                 flex-direction: column;
-                gap: 15px;
+                gap: 12px;
+            }
+
+            .filter-drawer-content {
+                max-height: 85vh;
+            }
+        }
+
+        /* ========== Small Mobile Screens ========== */
+        @media (max-width: 380px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .username-card {
+                padding: 12px;
+            }
+
+            .profile-pic,
+            .profile-pic-placeholder {
+                width: 45px;
+                height: 45px;
+            }
+
+            .profile-pic-placeholder svg {
+                width: 25px;
+                height: 25px;
+            }
+
+            .username {
+                font-size: 15px;
+            }
+
+            .card-stats {
+                gap: 6px;
+            }
+
+            .stat-item-value {
+                font-size: 13px;
             }
         }
 
@@ -1155,93 +1398,63 @@
         </div>
     </header>
 
-    <!-- Stats Banner -->
-    <div class="stats-banner">
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-value" id="totalCount">0</div>
-                <div class="stat-label">إجمالي الحسابات</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="availableCount">0</div>
-                <div class="stat-label">المتاحة</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="takenCount">0</div>
-                <div class="stat-label">المحجوزة</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="unknownCount">0</div>
-                <div class="stat-label">غير معروفة</div>
-            </div>
+  
+
+    <!-- Compact Search Bar -->
+    <div class="search-container">
+        <div class="search-wrapper">
+            <input 
+                type="text" 
+                class="compact-search" 
+                id="searchInput" 
+                placeholder="🔍 ابحث عن اسم مستخدم..."
+                oninput="filterData()"
+            >
+            <button class="filter-drawer-btn" onclick="toggleFilterDrawer()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6,13H18V11H6M3,6V8H21V6M10,18H14V16H10V18Z"/>
+                </svg>
+            </button>
         </div>
     </div>
 
-    <!-- Filters Section -->
-    <div class="filters-section">
-        <div class="filters-container">
-            <div class="filters-header">
-                <div class="filters-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6,13H18V11H6M3,6V8H21V6M10,18H14V16H10V18Z"/>
+    <!-- Filter Drawer (Hidden by default) -->
+    <div class="filter-drawer" id="filterDrawer">
+        <div class="filter-drawer-overlay" onclick="toggleFilterDrawer()"></div>
+        <div class="filter-drawer-content">
+            <div class="filter-drawer-header">
+                <h3>الفلاتر المتقدمة</h3>
+                <button class="close-drawer" onclick="toggleFilterDrawer()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
                     </svg>
-                    الفلاتر والبحث
-                </div>
-                <button class="toggle-filters-btn" onclick="toggleFilters()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                    </svg>
-                    <span id="filterToggleText">إخفاء</span>
                 </button>
             </div>
             
-            <div class="filters-content" id="filtersContent">
-                <input 
-                    type="text" 
-                    class="search-box" 
-                    id="searchInput" 
-                    placeholder="🔍 ابحث عن اسم مستخدم..."
-                    oninput="filterData()"
-                >
-            
-            <div class="filters-grid">
-                <div class="filter-group">
+            <div class="filter-drawer-body">
+                <div class="filter-section">
                     <label class="filter-label">الحالة</label>
-                    <select class="filter-select" id="statusFilter" onchange="filterData()">
-                        <option value="">الكل</option>
-                        <option value="available">متاح</option>
-                        <option value="taken">محجوز</option>
-                        <option value="unknown">غير معروف</option>
-                    </select>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-status="" onclick="setStatusFilter(this, '')">الكل</button>
+                        <button class="filter-btn" data-status="available" onclick="setStatusFilter(this, 'available')">متاح</button>
+                        <button class="filter-btn" data-status="taken" onclick="setStatusFilter(this, 'taken')">محجوز</button>
+                        <button class="filter-btn" data-status="unknown" onclick="setStatusFilter(this, 'unknown')">غير معروف</button>
+                    </div>
                 </div>
-                
-                <div class="filter-group">
+
+                <div class="filter-section">
                     <label class="filter-label">عدد الأحرف</label>
-                    <select class="filter-select" id="lengthFilter" onchange="filterData()">
-                        <option value="">الكل</option>
-                        <option value="1">حرف واحد</option>
-                        <option value="2">حرفان</option>
-                        <option value="3">3 أحرف</option>
-                        <option value="4">4 أحرف</option>
-                        <option value="5">5+ أحرف</option>
-                    </select>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-length="" onclick="setLengthFilter(this, '')">الكل</button>
+                        <button class="filter-btn" data-length="3" onclick="setLengthFilter(this, '3')">3</button>
+                        <button class="filter-btn" data-length="4" onclick="setLengthFilter(this, '4')">4</button>
+                        <button class="filter-btn" data-length="5" onclick="setLengthFilter(this, '5')">5+</button>
+                    </div>
                 </div>
-                
-                <div class="filter-group">
-                    <label class="filter-label">عدد المتابعين</label>
-                    <select class="filter-select" id="followersFilter" onchange="filterData()">
-                        <option value="">الكل</option>
-                        <option value="0-1000">أقل من 1K</option>
-                        <option value="1000-10000">1K - 10K</option>
-                        <option value="10000-100000">10K - 100K</option>
-                        <option value="100000-1000000">100K - 1M</option>
-                        <option value="1000000+">أكثر من 1M</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
+
+                <div class="filter-section">
                     <label class="filter-label">الترتيب</label>
-                    <select class="filter-select" id="sortFilter" onchange="filterData()">
+                    <select class="filter-select-modern" id="sortFilter" onchange="filterData()">
                         <option value="username-asc">الاسم (أ-ي)</option>
                         <option value="username-desc">الاسم (ي-أ)</option>
                         <option value="followers-desc">الأكثر متابعة</option>
@@ -1250,34 +1463,34 @@
                         <option value="length-desc">الأطول</option>
                     </select>
                 </div>
-            </div>
 
-            <div class="filter-tags">
-                <div class="filter-tag" onclick="toggleFilter(this, 'verified')" data-filter="verified">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
-                    </svg>
-                    موثق
+                <div class="filter-section">
+                    <label class="filter-label">خيارات إضافية</label>
+                    <div class="filter-chips">
+                        <div class="chip" onclick="toggleChip(this, 'verified')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+                            </svg>
+                            موثق
+                        </div>
+                        <div class="chip" onclick="toggleChip(this, 'private')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/>
+                            </svg>
+                            خاص
+                        </div>
+                        <div class="chip" onclick="toggleChip(this, 'business')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20,6C20.58,6 21.05,6.2 21.42,6.59C21.8,7 22,7.45 22,8V19C22,19.55 21.8,20 21.42,20.41C21.05,20.8 20.58,21 20,21H4C3.42,21 2.95,20.8 2.58,20.41C2.2,20 2,19.55 2,19V8C2,7.45 2.2,7 2.58,6.59C2.95,6.2 3.42,6 4,6H8V4C8,3.42 8.2,2.95 8.58,2.58C8.95,2.2 9.42,2 10,2H14C14.58,2 15.05,2.2 15.42,2.58C15.8,2.95 16,3.42 16,4V6H20M4,8V19H20V8H4M14,6V4H10V6H14Z"/>
+                            </svg>
+                            تجاري
+                        </div>
+                    </div>
                 </div>
-                <div class="filter-tag" onclick="toggleFilter(this, 'private')" data-filter="private">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/>
-                    </svg>
-                    خاص
-                </div>
-                <div class="filter-tag" onclick="toggleFilter(this, 'business')" data-filter="business">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20,6C20.58,6 21.05,6.2 21.42,6.59C21.8,7 22,7.45 22,8V19C22,19.55 21.8,20 21.42,20.41C21.05,20.8 20.58,21 20,21H4C3.42,21 2.95,20.8 2.58,20.41C2.2,20 2,19.55 2,19V8C2,7.45 2.2,7 2.58,6.59C2.95,6.2 3.42,6 4,6H8V4C8,3.42 8.2,2.95 8.58,2.58C8.95,2.2 9.42,2 10,2H14C14.58,2 15.05,2.2 15.42,2.58C15.8,2.95 16,3.42 16,4V6H20M4,8V19H20V8H4M14,6V4H10V6H14Z"/>
-                    </svg>
-                    تجاري
-                </div>
-                <div class="filter-tag" onclick="toggleFilter(this, 'noposts')" data-filter="noposts">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
-                    </svg>
-                    بدون منشورات
-                </div>
-            </div>
+
+                <button class="apply-filters-btn" onclick="toggleFilterDrawer()">
+                    تطبيق الفلاتر
+                </button>
             </div>
         </div>
     </div>
@@ -1358,19 +1571,14 @@
         let allData = [];
         let filteredData = [];
         let activeFilters = new Set();
+        let currentStatus = '';
+        let currentLength = '';
 
         // Initialize
         window.addEventListener('DOMContentLoaded', async () => {
             // تطبيق الثيم المحفوظ
             const savedTheme = localStorage.getItem('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
-            
-            // تطبيق حالة الفلاتر المحفوظة على الجوال
-            const filtersCollapsed = localStorage.getItem('filtersCollapsed') === 'true';
-            if (filtersCollapsed && window.innerWidth <= 768) {
-                document.getElementById('filtersContent').classList.add('collapsed');
-                document.getElementById('filterToggleText').textContent = 'عرض';
-            }
             
             await loadData();
             setTimeout(() => {
@@ -1384,19 +1592,41 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            
-            // إضافة تأثير انتقالي
             document.body.style.transition = 'background-color 0.3s ease';
         }
 
-        // Toggle Filters (للجوال)
-        function toggleFilters() {
-            const filtersContent = document.getElementById('filtersContent');
-            const toggleText = document.getElementById('filterToggleText');
-            const isCollapsed = filtersContent.classList.toggle('collapsed');
-            
-            toggleText.textContent = isCollapsed ? 'عرض' : 'إخفاء';
-            localStorage.setItem('filtersCollapsed', isCollapsed);
+        // Toggle Filter Drawer
+        function toggleFilterDrawer() {
+            const drawer = document.getElementById('filterDrawer');
+            drawer.classList.toggle('active');
+            document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Set Status Filter
+        function setStatusFilter(btn, status) {
+            document.querySelectorAll('[data-status]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentStatus = status;
+            filterData();
+        }
+
+        // Set Length Filter
+        function setLengthFilter(btn, length) {
+            document.querySelectorAll('[data-length]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentLength = length;
+            filterData();
+        }
+
+        // Toggle Chip Filter
+        function toggleChip(chip, filterType) {
+            chip.classList.toggle('active');
+            if (activeFilters.has(filterType)) {
+                activeFilters.delete(filterType);
+            } else {
+                activeFilters.add(filterType);
+            }
+            filterData();
         }
 
         // Load Data from JSON files
@@ -1450,9 +1680,6 @@
         // Filter Data
         function filterData() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const statusFilter = document.getElementById('statusFilter').value;
-            const lengthFilter = document.getElementById('lengthFilter').value;
-            const followersFilter = document.getElementById('followersFilter').value;
             const sortFilter = document.getElementById('sortFilter').value;
 
             filteredData = allData.filter(user => {
@@ -1462,27 +1689,19 @@
                 }
 
                 // Status filter
-                if (statusFilter && user.status !== statusFilter) {
+                if (currentStatus && user.status !== currentStatus) {
                     return false;
                 }
 
                 // Length filter
-                if (lengthFilter) {
+                if (currentLength) {
                     const len = user.username.length;
-                    const filterLen = parseInt(lengthFilter);
+                    const filterLen = parseInt(currentLength);
                     if (filterLen === 5 && len < 5) return false;
                     if (filterLen !== 5 && len !== filterLen) return false;
                 }
 
-                // Followers filter
-                if (followersFilter && user.account_info) {
-                    const followers = user.account_info.followers_count || 0;
-                    const [min, max] = followersFilter.split('-').map(v => v === '+' ? Infinity : parseInt(v));
-                    if (max && (followers < min || followers > max)) return false;
-                    if (!max && followers < min) return false;
-                }
-
-                // Active filters
+                // Active chip filters
                 if (activeFilters.has('verified') && (!user.account_info || !user.account_info.is_verified)) {
                     return false;
                 }
@@ -1490,9 +1709,6 @@
                     return false;
                 }
                 if (activeFilters.has('business') && (!user.account_info || !user.account_info.is_business_account)) {
-                    return false;
-                }
-                if (activeFilters.has('noposts') && user.account_info && user.account_info.posts_count > 0) {
                     return false;
                 }
 
@@ -1527,17 +1743,6 @@
             });
 
             renderCards();
-        }
-
-        // Toggle Filter
-        function toggleFilter(element, filterType) {
-            element.classList.toggle('active');
-            if (activeFilters.has(filterType)) {
-                activeFilters.delete(filterType);
-            } else {
-                activeFilters.add(filterType);
-            }
-            filterData();
         }
 
         // Render Cards
